@@ -4,6 +4,7 @@ interface TypesBtn {
   label: string,
   onClick: React.MouseEventHandler<HTMLButtonElement>,
   className: string
+  
 }
 
 function AuthBtn({label, onClick, className}: TypesBtn) {

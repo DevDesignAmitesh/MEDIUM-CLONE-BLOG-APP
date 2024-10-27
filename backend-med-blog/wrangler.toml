@@ -1,0 +1,28 @@
+name = "backend-med-blog"
+main = "src/index.ts"
+compatibility_date = "2024-10-25"
+compatibility_flags = [ "nodejs_compat" ]
+
+[vars]
+DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiNTc3YjQ0NDItNWM4NS00OGNiLTg0MWUtMTMzMTVjMDI2ZjQ0IiwidGVuYW50X2lkIjoiNjZlZTYwZmE5ZTRhMjdiNzA4OThmODA0M2Y3YmI2YmU5NWI3OWEyNDA0ZmE5NzlhNWFiNmQ3MGYwN2EwZDdjNSIsImludGVybmFsX3NlY3JldCI6ImVjMGU3ZWM0LTQwZDQtNDBkNy1iMmU3LWNiNDJmZWI5ZTBiMiJ9.pZPrz176HRedFsquDSctdWyicfAOsyEFHYBOr8vHxkY"
+JWT_SECRET="HELLO"
+
+# [[kv_namespaces]]
+# binding = "MY_KV_NAMESPACE"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "my-bucket"
+
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "my-database"
+# database_id = ""
+
+# [ai]
+# binding = "AI"
+
+# [observability]
+# enabled = true
+# head_sampling_rate = 1
