@@ -8,6 +8,7 @@ import React, { useCallback, useEffect, useState } from "react";
 type TypeBlogs = {
   title: string;
   content: string;
+  imageUrl: string;
 };
 
 function OneBlogPage() {
@@ -60,9 +61,9 @@ function OneBlogPage() {
       <header className="top-0 px-20 py-3 border-b-2 border-gray-400 absolute w-full flex justify-between items-center">
         <h1 className="text-2xl font-bold">Medium</h1>
         <div className="flex items-center gap-5">
-          <Link href={"/blogs/createblog"}>
-            <button className="py-2 px-4 bg-green-600 text-white font-semibold rounded-md">
-              Create Blog
+        <Link href={`/blogs/updateblog?id=${id}`}>
+            <button className="py-2 px-4 bg-gray-600 text-white font-semibold rounded-md">
+              Update Blog
             </button>
           </Link>
           <Link href={"/blogs/allblog"}>
@@ -85,6 +86,7 @@ function OneBlogPage() {
               <span className="font-semibold">Content:</span>{" "}
               {uniqueBlog?.content || "No Content Available"}
             </p>
+            <img className="h-[200px] object-cover" src={uniqueBlog?.imageUrl} alt="" />
           </div>
         </div>
       )}

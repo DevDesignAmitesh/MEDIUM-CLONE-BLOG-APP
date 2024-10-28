@@ -10,6 +10,7 @@ interface TypeBlogs {
   content: string;
   authorId: string;
   id: string;
+  imageUrl: string;
 }
 
 function AllBlogPage() {
@@ -48,7 +49,6 @@ function AllBlogPage() {
     }
   }, [URL, token]);
 
-  // Fetch all blogs when token changes
   useEffect(() => {
     if (token) {
       getAllBlogs();
@@ -100,6 +100,8 @@ function AllBlogPage() {
       <h1 className="text-4xl font-bold mb-14">All blogs</h1>
       {loading ? (
         <h1 className="text-5xl">Loading...</h1> // Show loading indicator
+      ) : blogs.length === 0 ? (
+        <h1 className="text-5xl font-bold">No blogs</h1>
       ) : (
         blogs.map((blog) => (
           <div
@@ -114,6 +116,13 @@ function AllBlogPage() {
                 {blog.content.length > 10 ? blog.content + "..." : blog.content}
               </p>
               <p className="font-semibold text-gray-700">{blog.authorId}</p>
+              {blog.imageUrl && (
+                <img
+                  className="h-[50px] object-cover"
+                  src={blog.imageUrl}
+                  alt="blog-photo"
+                />
+              )}
             </Link>
             <button
               onClick={() => deleteBlogFunction(blog.id)}

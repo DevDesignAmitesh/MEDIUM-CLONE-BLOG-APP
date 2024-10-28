@@ -3,10 +3,11 @@
 import AuthInput from "@/component/AuthInput";
 import axios from "axios";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-function CreateBlogPage() {
+function UpdateBlogPage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,8 @@ function CreateBlogPage() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const url = process.env.NEXT_PUBLIC_BACKEND_URL;
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const id = searchParams?.get("id");
 
   // Effect to fetch the token from localStorage
   useEffect(() => {
@@ -24,7 +27,7 @@ function CreateBlogPage() {
     }
   }, []); // Runs only once when the component mounts
 
-  const createBlogFunction = async () => {
+  const updateBlogFunction = async () => {
     if (!token) {
       console.error("Token is not available"); // Optional: Handle token absence
       return;
@@ -35,9 +38,10 @@ function CreateBlogPage() {
       if (!title && !content && !selectedImage) {
         return setError("please fill some details");
       }
-      await axios.post(
+      await axios.put(
         `${url}/api/v1/blog/blog`,
         {
+          id,
           title,
           content,
           imageUrl: selectedImage ? URL.createObjectURL(selectedImage) : null,
@@ -48,7 +52,7 @@ function CreateBlogPage() {
           },
         }
       );
-      router.push("/blogs/allblog");
+      router.push(`/blogs/oneblog?id=${id}`);
     } catch (error) {
       console.error("Error creating blog:", error); // Handle error accordingly
     } finally {
@@ -60,7 +64,7 @@ function CreateBlogPage() {
     <div className="w-full h-screen flex justify-center items-center flex-col gap-5 relative">
       <header className="px-20 py-3 top-0 border-b-2 border-gray-400 absolute w-full flex justify-between items-center">
         <h1 className="text-2xl font-bold">Medium</h1>
-        <Link className="flex items-center gap-5" href={"/blogs/allblog"}>
+        <Link className="flex items-center gap-5" href={`/blogs/oneblog?id=${id}`}>
           <button className="py-2 px-4 bg-black text-white font-semibold rounded-md">
             Cancel
           </button>
@@ -70,7 +74,7 @@ function CreateBlogPage() {
       <AuthInput
         className="font-semibold border-2 border-black text-black p-2 w-[400px] rounded-md"
         value={title}
-        label="Add Title"
+        label="Edit Title"
         placeholder="title..."
         type="text"
         onChange={(e) => setTitle(e.target.value)}
@@ -78,7 +82,7 @@ function CreateBlogPage() {
       <AuthInput
         className="font-semibold border-2 border-black text-black p-2 w-[400px] rounded-md"
         value={content}
-        label="Add Content"
+        label="Edit Content"
         placeholder="content..."
         type="text"
         onChange={(e) => setContent(e.target.value)}
@@ -86,7 +90,7 @@ function CreateBlogPage() {
       <AuthInput
         className="font-semibold border-2 border-black text-black p-2 w-[400px] rounded-md"
         value={""}
-        label="Add Image"
+        label="Edit Image"
         placeholder=""
         type="file"
         onChange={(e) => {
@@ -94,9 +98,8 @@ function CreateBlogPage() {
           setSelectedImage(file)
         }}
       />
-      <span>{selectedImage?.name}</span>
       <button
-        onClick={createBlogFunction}
+        onClick={updateBlogFunction}
         className="py-2 px-4 bg-green-600 text-white font-semibold rounded-md"
       >
         {loading ? "Loading" : "Save"}
@@ -105,4 +108,4 @@ function CreateBlogPage() {
   );
 }
 
-export default CreateBlogPage;
+export default UpdateBlogPage;

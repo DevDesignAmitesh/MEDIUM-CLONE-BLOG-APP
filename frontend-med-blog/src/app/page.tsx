@@ -16,7 +16,7 @@ export default function Home() {
             Sign in
           </Link>
           <Link
-            className="text-[14px] bg-black rounded-full font-medium py-2 px-4 text-white"
+            className="text-[14px] bg-[#242424] rounded-full font-medium py-2 px-4 text-white"
             href="/auth/signup"
           >
             Sign up

@@ -58,10 +58,10 @@ function SignupPage() {
       <div className="flex gap-2 flex-col">
         <AuthInput
           className="border-2 border-black rounded-md p-2 w-[400px]"
-          value={email}
+          value={name}
           label="Name"
           placeholder="amitesh"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
           type="text"
         />
         <AuthInput
